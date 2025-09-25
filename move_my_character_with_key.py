@@ -1,3 +1,4 @@
+#2022180012 김형민
 from pico2d import *
 
 TUK_WIDTH, TUK_HEIGHT = 1280, 1024
