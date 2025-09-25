@@ -10,4 +10,11 @@ character = load_image('animation_sheet.png')
 
 
 
+while True:
+    pass
+
+
+
+
+
 close_canvas()
