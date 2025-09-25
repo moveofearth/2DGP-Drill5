@@ -30,6 +30,25 @@ x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
 frame = 0
 
 def update():
+    if direction == 'up':
+        global y, frame
+        y = min(TUK_HEIGHT, y + 10)
+        frame = (frame + 1) % 8
+    elif direction == 'down':
+        global y, frame
+        y = max(0, y - 10)
+        frame = (frame + 1) % 8
+    elif direction == 'left':
+        global x, frame
+        x = max(0, x - 10)
+        frame = (frame + 1) % 8
+    elif direction == 'right':
+        global x, frame
+        x = min(TUK_WIDTH, x + 10)
+        frame = (frame + 1) % 8
+    elif direction == 'idle':
+        global frame
+        frame = 0
     pass
 
 def render():
