@@ -41,16 +41,16 @@ def update():
 
     if running == True:
         if direction == 'up':
-            y = min(TUK_HEIGHT, y + 10)
+            y = min(TUK_HEIGHT - 30, y + 10)
             frame = (frame + 1) % 8
         elif direction == 'down':
-            y = max(0, y - 10)
+            y = max(0 + 30, y - 10)
             frame = (frame + 1) % 8
         elif direction == 'left':
-            x = max(0, x - 10)
+            x = max(0 + 20, x - 10)
             frame = (frame + 1) % 8
         elif direction == 'right':
-            x = min(TUK_WIDTH, x + 10)
+            x = min(TUK_WIDTH - 20, x + 10)
             frame = (frame + 1) % 8
     else:
         frame = (frame + 1) % 8
@@ -78,7 +78,7 @@ while True:
     handle_events()
     update()
     render()
-    delay(0.05)
+    delay(0.01)
     pass
 
 
