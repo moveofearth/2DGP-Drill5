@@ -52,6 +52,13 @@ def update():
     pass
 
 def render():
+    clear_canvas()
+    tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+    if direction == 'idle':
+        character.clip_draw(frame * 100, 0, 100, 100, x, y)
+    else:
+        character.clip_draw(frame * 100, 100, 100, 100, x, y)
+    update_canvas()
     pass
 
 while True:
