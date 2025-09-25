@@ -15,60 +15,70 @@ def handle_events():
         if event.type == SDL_KEYDOWN:
             if event.key == SDLK_UP:
                 direction = 'up'
+                running = True
             elif event.key == SDLK_DOWN:
                 direction = 'down'
+                running = True
             elif event.key == SDLK_LEFT:
                 direction = 'left'
+                running = True
             elif event.key == SDLK_RIGHT:
                 direction = 'right'
+                running = True
         elif event.type == SDL_KEYUP:
-            direction = 'idle'
+            running = False
 
 
 
 x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
 frame = 0
+direction = 'left'
+running = False
 
 def update():
-    if direction == 'up':
-        global y, frame
-        y = min(TUK_HEIGHT, y + 10)
+    global x, y, frame, direction
+
+    if running == True:
+        if direction == 'up':
+            y = min(TUK_HEIGHT, y + 10)
+            frame = (frame + 1) % 8
+        elif direction == 'down':
+            y = max(0, y - 10)
+            frame = (frame + 1) % 8
+        elif direction == 'left':
+            x = max(0, x - 10)
+            frame = (frame + 1) % 8
+        elif direction == 'right':
+            x = min(TUK_WIDTH, x + 10)
+            frame = (frame + 1) % 8
+    else:
         frame = (frame + 1) % 8
-    elif direction == 'down':
-        global y, frame
-        y = max(0, y - 10)
-        frame = (frame + 1) % 8
-    elif direction == 'left':
-        global x, frame
-        x = max(0, x - 10)
-        frame = (frame + 1) % 8
-    elif direction == 'right':
-        global x, frame
-        x = min(TUK_WIDTH, x + 10)
-        frame = (frame + 1) % 8
-    elif direction == 'idle':
-        global frame
-        frame = 0
+
     pass
 
 def render():
     clear_canvas()
     tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
-    if direction == 'idle':
-        character.clip_draw(frame * 100, 0, 100, 100, x, y)
+    if running == True:
+        if direction == 'up' or direction == 'right':
+            character.clip_draw(frame * 100, 100, 100, 100, x, y)
+        elif direction == 'down' or direction == 'left':
+            character.clip_draw(frame * 100, 0, 100, 100, x, y)
     else:
-        character.clip_draw(frame * 100, 100, 100, 100, x, y)
+        if direction == 'up' or direction == 'right':
+            character.clip_draw(frame * 100, 300, 100, 100, x, y)
+        elif direction == 'down' or direction == 'left':
+            character.clip_draw(frame * 100, 200, 100, 100, x, y)
     update_canvas()
     pass
+
 
 while True:
     handle_events()
     update()
     render()
+    delay(0.05)
     pass
-
-
-
 
 
 close_canvas()
